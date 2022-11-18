@@ -48,7 +48,7 @@ gPerM2ToTonPerCm2.convert(1) // 1e-4
 gPerM2ToTonPerCm2.convert(3) // 3e-10
 gPerM2ToTonPerCm2.offset() // 0.0
 gPerM2ToTonPerCm2.scale() // 1e-10
-gPerM2ToTonPerCm2.inverse() // -0.0
+gPerM2ToTonPerCm2.inverse().offset() // -0.0
 gPerM2ToTonPerCm2.inverse().convert(3e-10) // 3
 ```
 
@@ -69,5 +69,5 @@ const kPerM: Unit = new DerivedUnit(k, m.factor(-1))
 const kPerMToCPerM: UnitConverter = kPerM.converter(cPerM)
     
 kPerMToCPerM.convert(3) // 3
-kPerMToCPerM.inverse().convert(3) //
+kPerMToCPerM.inverse().convert(3) // 3
 ```
