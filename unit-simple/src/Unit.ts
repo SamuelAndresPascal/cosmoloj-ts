@@ -79,7 +79,7 @@ export abstract class Unit implements Factor {
     return target.toBase().inverse().concatenate(source.toBase())
   }
 
-  converter (target: Unit): UnitConverter {
+  getConverterTo​ (target: Unit): UnitConverter {
     return Unit.affine(this, target)
   }
 

@@ -8,7 +8,7 @@ Utilisation des unités transformées :
 const m: Unit = new FundamentalUnit()
 const km: Unit = m.scaleMultiply(1000)
 const cm: Unit = m.scaleDivide(100)
-const cmToKm: UnitConverter = cm.converter(km)
+const cmToKm: UnitConverter = cm.getConverterTo​(km)
 
 cmToKm.convert(3) // 0.00003
 cmToKm.inverse().convert(0.00003) // 3
@@ -22,7 +22,7 @@ const km: Unit = m.scaleMultiply(1000)
 const km2: Unit = new DerivedUnit(km.factor(2))
 const cm: Unit = m.scaleDivide(100)
 const cm2: Unit = new DerivedUnit(cm.factor(2))
-const km2Tocm2: UnitConverter = km2.converter(cm2)
+const km2Tocm2: UnitConverter = km2.getConverterTo​(cm2)
 
 km2Tocm2.convert(3) // 30000000000
 km2Tocm2.inverse().convert(30000000000) // 3
@@ -40,8 +40,8 @@ const km: Unit = m.scaleMultiply(1000)
 const tonPerKm2: Unit = new DerivedUnit(ton, km.factor(-2))
 const cm: Unit = m.scaleDivide(100)
 const tonPerCm2: Unit = new DerivedUnit(ton, cm.factor(-2))
-const gPerM2ToTonPerKm2: UnitConverter = gPerM2.converter(tonPerKm2)
-const gPerM2ToTonPerCm2: UnitConverter = gPerM2.converter(tonPerCm2)
+const gPerM2ToTonPerKm2: UnitConverter = gPerM2.getConverterTo​(tonPerKm2)
+const gPerM2ToTonPerCm2: UnitConverter = gPerM2.getConverterTo​(tonPerCm2)
 
 
 gPerM2ToTonPerKm2.convert(1) // 1
@@ -59,7 +59,7 @@ Utilisation des températures (conversions affines et linéaires) :
 ```ts
 const k: Unit = new FundamentalUnit()
 const c: Unit = k.shift(273.15)
-const kToC: UnitConverter = k.converter(c)
+const kToC: UnitConverter = k.getConverterTo​(c)
 
 kToC.convert(0) // -273.15
 kToC.inverse().convert(0) // 273.15
@@ -68,7 +68,7 @@ kToC.inverse().convert(0) // 273.15
 const m: Unit = new FundamentalUnit()
 const cPerM: Unit = new DerivedUnit(c, m.factor(-1))
 const kPerM: Unit = new DerivedUnit(k, m.factor(-1))
-const kPerMToCPerM: UnitConverter = kPerM.converter(cPerM)
+const kPerMToCPerM: UnitConverter = kPerM.getConverterTo​(cPerM)
 
 kPerMToCPerM.convert(3) // 3
 kPerMToCPerM.inverse().convert(3) // 3
