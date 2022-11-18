@@ -85,12 +85,8 @@ export abstract class Unit implements Factor {
 
   abstract toBase(): UnitConverter
 
-  plus (value: number) {
+  shift (value: number) {
     return new TransformedUnit(UnitConverter.of(1.0, value), this)
-  }
-
-  minus (value: number) {
-    return this.plus(-value)
   }
 
   scaleMultiply (value: number) {
