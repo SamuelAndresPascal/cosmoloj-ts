@@ -1,0 +1,22 @@
+{
+  "name": "unit-simple",
+  "version": "1.0.1",
+  "description": "Typescript Simple Unit implementation.",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git repo"
+  },
+  "keywords": [
+    "unit",
+    "converter"
+  ],
+  "author": "Samuel Andrés",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "typescript": "^4.9.3"
+  }
+}
