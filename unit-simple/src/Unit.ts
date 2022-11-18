@@ -93,12 +93,12 @@ export abstract class Unit implements Factor {
     return this.plus(-value)
   }
 
-  multiply (value: number) {
+  scaleMultiply (value: number) {
     return new TransformedUnit(UnitConverter.of(value), this)
   }
 
-  divide (value: number) {
-    return this.multiply(1.0 / value)
+  scaleDivide (value: number) {
+    return this.scaleMultiply(1.0 / value)
   }
 
   factor (numerator: number, denominator?: number) {

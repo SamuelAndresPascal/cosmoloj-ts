@@ -1,11 +1,13 @@
 # Simple Unit (implémentation Typescript)
 
+## Utilisation
+
 Utilisation des unités transformées :
 
 ```ts
 const m: Unit = new FundamentalUnit()
-const km: Unit = m.multiply(1000)
-const cm: Unit = m.divide(100)
+const km: Unit = m.scaleMultiply(1000)
+const cm: Unit = m.scaleDivide(100)
 const cmToKm: UnitConverter = cm.converter(km)
 
 cmToKm.convert(3) // 0.00003
@@ -16,9 +18,9 @@ Utilisation des unités dérivées :
 
 ```ts
 const m: Unit = new FundamentalUnit()
-const km: Unit = m.multiply(1000)
+const km: Unit = m.scaleMultiply(1000)
 const km2: Unit = new DerivedUnit(km.factor(2))
-const cm: Unit = m.divide(100)
+const cm: Unit = m.scaleDivide(100)
 const cm2: Unit = new DerivedUnit(cm.factor(2))
 const km2Tocm2: UnitConverter = km2.converter(cm2)
 
@@ -31,12 +33,12 @@ Utilisation des unités dérivées en combinant les dimensions :
 ```ts
 const m: Unit = new FundamentalUnit()
 const kg: Unit = new FundamentalUnit()
-const g: Unit = kg.divide(1000)
-const ton: Unit = kg.multiply(1000)
+const g: Unit = kg.scaleDivide(1000)
+const ton: Unit = kg.scaleMultiply(1000)
 const gPerM2: Unit = new DerivedUnit(g, m.factor(-2))
-const km: Unit = m.multiply(1000)
+const km: Unit = m.scaleMultiply(1000)
 const tonPerKm2: Unit = new DerivedUnit(ton, km.factor(-2))
-const cm: Unit = m.divide(100)
+const cm: Unit = m.scaleDivide(100)
 const tonPerCm2: Unit = new DerivedUnit(ton, cm.factor(-2))
 const gPerM2ToTonPerKm2: UnitConverter = gPerM2.converter(tonPerKm2)
 const gPerM2ToTonPerCm2: UnitConverter = gPerM2.converter(tonPerCm2)
@@ -56,7 +58,7 @@ Utilisation des températures (conversions affines et linéaires) :
 
 ```ts
 const k: Unit = new FundamentalUnit()
-const c: Unit = k.plus(273.15)
+const c: Unit = k.shift(273.15)
 const kToC: UnitConverter = k.converter(c)
 
 kToC.convert(0) // -273.15
@@ -67,7 +69,38 @@ const m: Unit = new FundamentalUnit()
 const cPerM: Unit = new DerivedUnit(c, m.factor(-1))
 const kPerM: Unit = new DerivedUnit(k, m.factor(-1))
 const kPerMToCPerM: UnitConverter = kPerM.converter(cPerM)
-    
+
 kPerMToCPerM.convert(3) // 3
 kPerMToCPerM.inverse().convert(3) // 3
 ```
+
+## Développement
+
+Initialilisation du projet:
+
+```shell
+npm init
+```
+
+```
+node_modules/typescript/bin/tsc --init
+```
+
+Compilation:
+
+```shell
+node_modules/typescript/bin/tsc
+```
+
+```shell
+npm version patch
+```
+
+```shell
+npm publish
+```
+
+Références:
+
+* https://library.typescript.guide/
+* https://www.tsmean.com/articles/how-to-write-a-typescript-library/
