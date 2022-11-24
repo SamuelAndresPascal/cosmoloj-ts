@@ -76,7 +76,7 @@ kPerMToCPerM.inverse().convert(3) // 3
 
 ## Développement
 
-Initialilisation du projet:
+Initialilisation du projet :
 
 ```shell
 npm init
@@ -103,8 +103,3 @@ Test seuls :
 ```shell
 npm run test
 ```
-
-Références:
-
-* https://library.typescript.guide/
-* https://www.tsmean.com/articles/how-to-write-a-typescript-library/
