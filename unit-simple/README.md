@@ -86,18 +86,22 @@ npm init
 node_modules/typescript/bin/tsc --init
 ```
 
-Compilation:
+Résolution des dépendances :
 
 ```shell
-node_modules/typescript/bin/tsc
+npm install
 ```
 
-```shell
-npm version patch
-```
+Compilation et tests :
 
 ```shell
-npm publish
+npm run build
+```
+
+Test seuls :
+
+```shell
+npm run test
 ```
 
 Références:

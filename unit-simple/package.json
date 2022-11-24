@@ -1,14 +1,16 @@
 {
   "name": "unit-simple",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Typescript Simple Unit implementation.",
   "main": "./dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf dist/",
+    "build": "npm run clean && tsc && npm run test",
+    "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json"
   },
   "repository": {
     "type": "git",
-    "url": "git repo"
+    "url": "https://github.com/SamuelAndresPascal/cosmoloj-ts"
   },
   "keywords": [
     "unit",
@@ -17,6 +19,9 @@
   "author": "Samuel Andrés",
   "license": "UNLICENSED",
   "devDependencies": {
+    "@types/jasmine": "^4.3.0",
+    "jasmine": "^4.5.0",
+    "jasmine-core": "^4.5.0",
     "typescript": "^4.9.3"
   }
 }

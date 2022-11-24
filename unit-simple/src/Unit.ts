@@ -98,7 +98,7 @@ export abstract class Unit implements Factor {
   }
 
   factor (numerator: number, denominator?: number) {
-    return new DefaultFactor(this, numerator, denominator)
+    return new SimpleFactor(this, numerator, denominator)
   }
 
   dim (): Unit {
@@ -119,7 +119,7 @@ export abstract class Unit implements Factor {
 
 }
 
-class DefaultFactor implements Factor {
+class SimpleFactor implements Factor {
 
     private mUnit: Unit
     private mNumerator: number
