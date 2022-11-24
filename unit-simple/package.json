@@ -1,6 +1,6 @@
 {
   "name": "unit-simple",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Typescript Simple Unit implementation.",
   "main": "./dist/index.js",
   "scripts": {
