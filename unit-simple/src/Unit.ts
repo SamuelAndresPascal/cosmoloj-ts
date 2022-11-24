@@ -2,74 +2,68 @@ import { Factor } from './Factor'
 
 export class UnitConverter {
 
-    private mScale: number;
-    private mOffset: number;
-    private mInverse: UnitConverter;
+  private readonly mScale: number
+  private readonly mOffset: number
+  private readonly mInverse: UnitConverter
 
-    private constructor (scale: number, offset: number);
-    private constructor (scale: number, offset: number, inverse: UnitConverter);
-    private constructor (scale: number, offset: number, inverse?: UnitConverter) {
-      this.mScale = scale
-      this.mOffset = offset
+  private constructor (scale: number, offset: number, inverse?: UnitConverter) {
+    this.mScale = scale
+    this.mOffset = offset
 
-      if (inverse) {
-        this.mInverse = inverse
-      } else {
-        this.mInverse = new UnitConverter(1 / this.mScale, -this.mOffset / this.mScale, this)
-      }
+    if (inverse !== null && inverse !== undefined) {
+      this.mInverse = inverse
+    } else {
+      this.mInverse = new UnitConverter(1 / this.mScale, -this.mOffset / this.mScale, this)
     }
+  }
 
-    scale (): number {
-      return this.mScale
+  scale (): number {
+    return this.mScale
+  }
+
+  offset (): number {
+    return this.mOffset
+  }
+
+  inverse (): UnitConverter {
+    return this.mInverse
+  }
+
+  linear (): UnitConverter {
+    // on fait volontairement ici une égalité exacte sur un double
+    if (this.mOffset === 0.0) {
+      return this
+    } else {
+      return UnitConverter.of(this.mScale)
     }
+  }
 
-    offset (): number {
-      return this.mOffset
+  linearPow (pow: number): UnitConverter {
+    // on fait volontairement ici une égalité exacte sur un double
+    if (this.mOffset === 0.0 && pow === 1.0) {
+      return this
+    } else {
+      return UnitConverter.of(Math.pow(this.mScale, pow))
     }
+  }
 
-    inverse (): UnitConverter {
-      return this.mInverse
-    }
+  convert (value: number): number {
+    return value * this.mScale + this.mOffset
+  }
 
-    linear (): UnitConverter {
-      // on fait volontairement ici une égalité exacte sur un double
-      if (this.mOffset === 0.0) {
-        return this
-      } else {
-        return UnitConverter.of(this.mScale)
-      }
-    }
+  concatenate (converter: UnitConverter): UnitConverter {
+    return new UnitConverter(converter.scale() * this.mScale, this.convert(converter.offset()))
+  }
 
-    linearPow (pow: number): UnitConverter {
-      // on fait volontairement ici une égalité exacte sur un double
-      if (this.mOffset === 0.0 && pow === 1.0) {
-        return this
-      } else {
-        return UnitConverter.of(Math.pow(this.mScale, pow))
-      }
-    }
+  public static of (scale: number, offset: number = 0.0): UnitConverter {
+    return new UnitConverter(scale, offset)
+  }
 
-    convert (value: number): number {
-      return value * this.mScale + this.mOffset
-    }
+  private static readonly IDENTITY: UnitConverter = UnitConverter.of(1.0)
 
-    concatenate (converter: UnitConverter): UnitConverter {
-      return new UnitConverter(converter.scale() * this.mScale, this.convert(converter.offset()))
-    }
-
-    public static of (scale: number, offset?: number): UnitConverter {
-      if (offset != null) {
-        return new UnitConverter(scale, offset)
-      } else {
-        return UnitConverter.of(scale, 0.0)
-      }
-    }
-
-    private static IDENTITY: UnitConverter = UnitConverter.of(1.0)
-
-    public static identity (): UnitConverter {
-      return this.IDENTITY
-    }
+  public static identity (): UnitConverter {
+    return this.IDENTITY
+  }
 
 }
 
@@ -79,25 +73,25 @@ export abstract class Unit implements Factor {
     return target.toBase().inverse().concatenate(source.toBase())
   }
 
-  getConverterTo​ (target: Unit): UnitConverter {
+  getConverterTo (target: Unit): UnitConverter {
     return Unit.affine(this, target)
   }
 
-  abstract toBase(): UnitConverter
+  abstract toBase (): UnitConverter
 
-  shift (value: number) {
+  shift (value: number): TransformedUnit {
     return new TransformedUnit(UnitConverter.of(1.0, value), this)
   }
 
-  scaleMultiply (value: number) {
+  scaleMultiply (value: number): TransformedUnit {
     return new TransformedUnit(UnitConverter.of(value), this)
   }
 
-  scaleDivide (value: number) {
+  scaleDivide (value: number): TransformedUnit {
     return this.scaleMultiply(1.0 / value)
   }
 
-  factor (numerator: number, denominator?: number) {
+  factor (numerator: number, denominator?: number): Factor {
     return new SimpleFactor(this, numerator, denominator)
   }
 
@@ -121,31 +115,31 @@ export abstract class Unit implements Factor {
 
 class SimpleFactor implements Factor {
 
-    private mUnit: Unit
-    private mNumerator: number
-    private mDenominator: number
+  private readonly mUnit: Unit
+  private readonly mNumerator: number
+  private readonly mDenominator: number
 
-    public constructor (unit: Unit, numerator?: number, denominator?: number) {
-      this.mUnit = unit
-      this.mNumerator = numerator ?? 1
-      this.mDenominator = denominator ?? 1
-    }
+  public constructor (unit: Unit, numerator?: number, denominator?: number) {
+    this.mUnit = unit
+    this.mNumerator = numerator ?? 1
+    this.mDenominator = denominator ?? 1
+  }
 
-    dim (): Unit {
-      return this.mUnit
-    }
+  dim (): Unit {
+    return this.mUnit
+  }
 
-    numerator (): number {
-      return this.mNumerator
-    }
+  numerator (): number {
+    return this.mNumerator
+  }
 
-    denominator (): number {
-      return this.mDenominator
-    }
+  denominator (): number {
+    return this.mDenominator
+  }
 
-    power (): number {
-      return this.mDenominator === 1 ? this.mNumerator : this.mNumerator / this.mDenominator
-    }
+  power (): number {
+    return this.mDenominator === 1 ? this.mNumerator : this.mNumerator / this.mDenominator
+  }
 
 }
 
@@ -159,7 +153,7 @@ export class FundamentalUnit extends Unit {
 
 export class DerivedUnit extends Unit {
 
-  private mDefinition: Factor[]
+  private readonly mDefinition: Factor[]
 
   public constructor (...definition: Factor[]) {
     super()
@@ -186,25 +180,25 @@ export class DerivedUnit extends Unit {
 
 export class TransformedUnit extends Unit {
 
-    private mReferenceUnit: Unit
-    private mConverter: UnitConverter
+  private readonly mReference: Unit
+  private readonly mToReference: UnitConverter
 
-    public constructor (converter: UnitConverter, referenceUnit: Unit) {
-      super()
-      this.mConverter = converter
-      this.mReferenceUnit = referenceUnit
-    }
+  public constructor (toReference: UnitConverter, reference: Unit) {
+    super()
+    this.mToReference = toReference
+    this.mReference = reference
+  }
 
-    reference (): Unit {
-      return this.mReferenceUnit
-    }
+  reference (): Unit {
+    return this.mReference
+  }
 
-    toReference (): UnitConverter {
-      return this.mConverter
-    }
+  toReference (): UnitConverter {
+    return this.mToReference
+  }
 
-    toBase (): UnitConverter {
-      return this.reference().toBase().concatenate(this.toReference())
-    }
+  toBase (): UnitConverter {
+    return this.reference().toBase().concatenate(this.toReference())
+  }
 
 }

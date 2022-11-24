@@ -5,8 +5,9 @@
   "main": "./dist/index.js",
   "scripts": {
     "clean": "rm -rf dist/",
-    "build": "npm run clean && tsc && npm run test",
-    "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json"
+    "build": "npm run lint && npm run clean && tsc && npm run test",
+    "test": "jasmine JASMINE_CONFIG_PATH=jasmine.json",
+    "lint": "eslint './src/**'"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,12 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "@types/jasmine": "^4.3.0",
+    "@typescript-eslint/eslint-plugin": "^5.44.0",
+    "eslint": "^8.28.0",
+    "eslint-config-standard-with-typescript": "^23.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.5.1",
+    "eslint-plugin-promise": "^6.1.1",
     "jasmine": "^4.5.0",
     "jasmine-core": "^4.5.0",
     "typescript": "^4.9.3"

@@ -1,11 +1,11 @@
 import { Unit } from './Unit'
 
 export interface Factor {
-    dim(): Unit
+  dim: () => Unit
 
-    numerator(): number
+  numerator: () => number
 
-    denominator(): number
+  denominator: () => number
 
-    power(): number
+  power: () => number
 }

@@ -1,6 +1,6 @@
-import { DerivedUnit, FundamentalUnit, Unit, UnitConverter } from "./Unit"
+import { DerivedUnit, FundamentalUnit, Unit, UnitConverter } from './Unit'
 
-describe('Unit', () => {
+describe('Unit tests', () => {
   it('transformed unit conversion', () => {
     const m: Unit = new FundamentalUnit()
     const km: Unit = m.scaleMultiply(1000)
