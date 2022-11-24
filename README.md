@@ -2,7 +2,17 @@
 
 [Implémentation de Simple Unit en Typescript](unit-simple/README.md)
 
-## Programmatiobn
+## Programmation
+
+### Initialilisation d'un projet
+
+```shell
+npm init
+```
+
+```
+node_modules/typescript/bin/tsc --init
+```
 
 ### Publier un patch sur NPM
 

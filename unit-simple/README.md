@@ -76,16 +76,6 @@ kPerMToCPerM.inverse().convert(3) // 3
 
 ## Développement
 
-Initialilisation du projet :
-
-```shell
-npm init
-```
-
-```
-node_modules/typescript/bin/tsc --init
-```
-
 Résolution des dépendances :
 
 ```shell
