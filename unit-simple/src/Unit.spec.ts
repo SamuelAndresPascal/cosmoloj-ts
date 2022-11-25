@@ -56,7 +56,7 @@ describe('Unit tests', () => {
     expect(kToC.convert(1)).toBeCloseTo(-272.15, 1e-10)
     expect(kToC.inverse().convert(1)).toBeCloseTo(274.15, 1e-10)
     expect(kToC.convert(2)).toBeCloseTo(-271.15, 1e-10)
-    expect(kToC.inverse().convert(2)).toBeCloseTo(274.15, 1e-10)
+    expect(kToC.inverse().convert(2)).toBeCloseTo(275.15, 1e-10)
 
     // en combinaison avec d'autres unités, les conversions d'unités de températures doivent devenir linéaires
     const m: Unit = new FundamentalUnit()
