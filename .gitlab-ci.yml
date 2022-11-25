@@ -1,0 +1,22 @@
+before_script:
+  - . $NVM_DIR/nvm.sh
+  - nvm --version
+  - nvm ls
+  - nvm install $NPM_VERSION
+  - nvm use $NPM_VERSION
+  - npm -version
+
+stages:
+  - build
+
+build-unit-simple:
+  stage: build
+  script:
+    - cd unit-simple
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 2 days
+
