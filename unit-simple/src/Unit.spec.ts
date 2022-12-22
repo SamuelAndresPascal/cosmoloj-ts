@@ -66,4 +66,20 @@ describe('Unit tests', () => {
     expect(kPerMToCPerM.convert(3)).toBeCloseTo(3, 1e-10)
     expect(kPerMToCPerM.inverse().convert(3)).toBeCloseTo(3, 1e-10)
   })
+
+  it('speed', () => {
+    const m: Unit = new FundamentalUnit()
+    const km: Unit = m.scaleMultiply(1000.0)
+
+    const s: Unit = new FundamentalUnit()
+    const h: Unit = s.scaleMultiply(3600.0)
+
+    const ms: Unit = new DerivedUnit(m, s.factor(-1))
+    const kmh: Unit = new DerivedUnit(km, h.factor(-1))
+
+    const msToKmh: UnitConverter = ms.getConverterTo(kmh)
+
+    expect(msToKmh.convert(100.0)).toBeCloseTo(360.0, 1e-10)
+    expect(msToKmh.inverse().convert(18.0)).toBeCloseTo(5.0, 1e-10)
+  })
 })

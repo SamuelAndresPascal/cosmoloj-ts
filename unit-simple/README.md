@@ -74,6 +74,24 @@ kPerMToCPerM.convert(3) // 3
 kPerMToCPerM.inverse().convert(3) // 3
 ```
 
+Utilisation des conversions non-décimales :
+
+```ts
+const m: Unit = new FundamentalUnit()
+const km: Unit = m.scaleMultiply(1000.0)
+
+const s: Unit = new FundamentalUnit()
+const h: Unit = s.scaleMultiply(3600.0)
+
+const ms: Unit = new DerivedUnit(m, s.factor(-1))
+const kmh: Unit = new DerivedUnit(km, h.factor(-1))
+
+const msToKmh: UnitConverter = ms.getConverterTo(kmh)
+
+msToKmh.convert(100.0) // 360
+msToKmh.inverse().convert(18) // 5
+```
+
 ## Développement
 
 Résolution des dépendances :
