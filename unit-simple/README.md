@@ -1,5 +1,7 @@
 # Simple Unit (implémentation Typescript)
 
+[![npm version](https://badge.fury.io/js/unit-simple.svg)](https://badge.fury.io/js/unit-simple)
+
 ## Utilisation
 
 Utilisation des unités transformées :
