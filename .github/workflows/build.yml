@@ -19,7 +19,7 @@ jobs:
       - run: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
       - run: . ~/.bashrc
       - run: nvm --version
-      - run: nvm install 16.13.0
+      - run: nvm install 16.13.0 --latest-npm
       - run: nvm ls
       - working-directory: unit-simple
         run: npm ci

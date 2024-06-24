@@ -2,7 +2,7 @@ before_script:
   - . $NVM_DIR/nvm.sh
   - nvm --version
   - nvm ls
-  - nvm install $NODE_VERSION
+  - nvm install $NODE_VERSION --latest-npm
   - nvm use $NODE_VERSION
   - npm -version
 
