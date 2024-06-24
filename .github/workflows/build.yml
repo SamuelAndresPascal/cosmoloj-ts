@@ -14,6 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+      - run: . ~/.bashrc
       - run: nvm --version
       - run: nvm install 16.13.0
       - run: nvm ls
