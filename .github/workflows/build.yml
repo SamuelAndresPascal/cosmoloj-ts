@@ -1,0 +1,23 @@
+name: build
+run-name: ${{ github.actor }}
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '30 5 * * 0'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+      - run: nvm --version
+      - run: nvm install 16.13.0
+      - run: nvm ls
+      - working-directory: unit-simple
+        run: npm ci
+      - working-directory: unit-simple
+        run: npm run build
